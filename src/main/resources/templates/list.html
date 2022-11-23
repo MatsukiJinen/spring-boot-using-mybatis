@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8" th:remove="tag">
+</head>
+<body>
+   <!-- コンテンツの表示 -->
+   <div class="container-fluid" layout:fragment="content">
+       <h4>MyBatis APP</h4>
+       <table class="table" th:if="${page.size > 0}">
+           <thead>
+              <tr>
+                  <th>#</th>
+                  <th>名前</th>
+                  <th>E-Mail</th>
+                  <th></th>
+              </tr>
+           </thead>
+           <tbody>
+              <tr th:each="teacher : ${page}" th:object="${teacher}">
+                  <td th:text="*{id}"></td>
+                  <td th:text="*{userName}"></td>
+                  <td th:text="*{email}"></td>
+                  <td class="py-1">
+                      <a th:href="@{/edit/{id}(id=*{id})}" class="btn btn-outline-primary">
+                          <i class="bi bi-pencil-fill">編集</i>
+                      </a>
+                      <a th:href="@{/delete/{id}(id=*{id})}" class="btn btn-outline-danger">
+                          <i class="bi bi-trash-fill">削除</i>
+                      </a>
+                  </td>
+              </tr>
+           </tbody>
+       </table>
+
+       <div class="row">
+           <div class="col-auto me-auto">
+               <a th:href="@{/add}" class="btn btn-outline-primary">
+                   <i class="bi bi-plus-lg">新規追加</i>
+               </a>
+           </div>
+       </div>
+   </div>
+</body>
+</html>
